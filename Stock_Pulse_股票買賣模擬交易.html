@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>股市猜猜看｜Stock Pulse</title>
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#f3f6fa,#090f1a);--panel:light-dark(#fff,#111b2a);--panel2:light-dark(#f7f9fc,#172335);--text:light-dark(#172338,#e8eef8);--muted:light-dark(#68778d,#8fa1ba);--line:light-dark(#e2e8f0,#26364b);--green:#21c58e;--red:#f05d69;--blue:#6e9bff;--gold:#f5bd4f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;font-variant-numeric:tabular-nums}.app{min-height:100vh;background:var(--bg)}.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,52px);background:var(--panel)}.brand{display:flex;gap:11px;align-items:center;font-weight:800;letter-spacing:.2px}.logo{height:35px;width:35px;border-radius:10px;background:linear-gradient(135deg,#70a1ff,#5268f5);display:grid;place-items:center;color:white;font-size:20px}.brand small{display:block;font-size:10px;color:var(--muted);font-weight:700;letter-spacing:1.7px;margin-top:2px}.topright{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:var(--panel2)}.live-dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:6px;box-shadow:0 0 0 3px #21c58e22}.wrap{max-width:1220px;margin:auto;padding:28px 22px 48px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:22px}.eyebrow{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.intro h1{font-size:clamp(25px,3vw,35px);letter-spacing:-1px;margin:7px 0}.intro p{margin:0;color:var(--muted);font-size:13px}.roundbox{text-align:right;min-width:110px}.roundbox strong{font-size:23px}.roundbox span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.progress{height:5px;background:var(--line);border-radius:8px;margin-top:10px;overflow:hidden}.progress div{height:100%;background:linear-gradient(90deg,var(--blue),#9b7bff);width:0;transition:width .25s}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:16px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:17px 18px;min-width:0}.stat .label{color:var(--muted);font-size:11px;display:flex;align-items:center;gap:7px}.stat .value{font-size:clamp(18px,2.2vw,25px);font-weight:750;letter-spacing:-.6px;margin:10px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stat .sub{font-size:11px;color:var(--muted)}.positive{color:var(--green)!important}.negative{color:var(--red)!important}.layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr);gap:16px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}.panelhead{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line);gap:12px}.paneltitle{font-weight:750;font-size:14px}.panel-sub{color:var(--muted);font-size:11px;margin-top:4px}.tag{font-size:10px;color:var(--green);background:#21c58e18;border:1px solid #21c58e35;border-radius:6px;padding:5px 7px;font-weight:800}.chart-area{padding:17px 18px 8px}.price-line{display:flex;align-items:baseline;gap:10px;margin:0 0 4px}.price-line strong{font-size:27px;letter-spacing:-.7px}.price-line span{font-size:12px}.chart{display:block;width:100%;height:260px}.chart-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;padding:0 4px 14px}.chart-foot{border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;padding:14px 20px;color:var(--muted);font-size:11px}.chart-foot strong{color:var(--text);font-weight:650}.game{display:flex;flex-direction:column}.gamebody{padding:19px 20px;display:flex;flex-direction:column;gap:16px;flex:1}.ticker{display:flex;align-items:center;gap:11px}.tickericon{width:43px;height:43px;border-radius:12px;background:#6e9bff1b;color:var(--blue);display:grid;place-items:center;font-weight:900;font-size:17px}.tickername{font-size:13px;font-weight:750}.tickersub{font-size:11px;color:var(--muted);margin-top:4px}.divider{height:1px;background:var(--line)}.question{font-size:17px;line-height:1.5;font-weight:750}.question span{color:var(--blue)}.hint{font-size:12px;color:var(--muted);line-height:1.6;margin-top:-7px}.news{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;gap:10px;align-items:flex-start}.newsicon{font-size:16px}.newstext{font-size:12px;line-height:1.5}.newstext small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{padding:14px 12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:11px;cursor:pointer;text-align:left;transition:.15s;font:inherit}.choice:hover:not(:disabled){transform:translateY(-2px);border-color:var(--blue)}.choice:disabled{opacity:.5;cursor:not-allowed}.choice .arrow{font-size:19px;font-weight:900;display:block;margin-bottom:6px}.choice b{font-size:13px}.choice small{display:block;font-size:10px;color:var(--muted);margin-top:5px}.up .arrow{color:var(--red)}.down .arrow{color:var(--green)}.action{width:100%;border:0;border-radius:10px;padding:13px 15px;font-weight:800;font-size:13px;cursor:pointer;transition:.15s}.primary{background:var(--blue);color:white}.primary:hover{filter:brightness(1.08)}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.result{display:none;border-radius:10px;padding:13px;font-size:12px;line-height:1.6}.result.show{display:block}.result.good{background:#21c58e15;border:1px solid #21c58e55}.result.bad{background:#f05d6915;border:1px solid #f05d6955}.result strong{display:block;font-size:14px;margin-bottom:3px}.microcopy{color:var(--muted);font-size:10px;line-height:1.6}.history-panel{margin-top:16px}.history{display:flex;gap:8px;flex-wrap:wrap;padding:15px 20px}.history-chip{font-size:11px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--muted)}.history-chip b{margin-left:5px}.history-chip.win b{color:var(--green)}.history-chip.loss b{color:var(--red)}.empty{color:var(--muted);font-size:12px}.overlay{position:fixed;inset:0;background:#060b14d9;display:none;align-items:center;justify-content:center;padding:20px;z-index:10;backdrop-filter:blur(7px)}.overlay.show{display:flex}.modal{width:min(480px,100%);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px;text-align:center;box-shadow:0 30px 90px #0005}.trophy{font-size:42px}.modal h2{margin:12px 0 7px;font-size:25px}.modal p{color:var(--muted);font-size:13px;line-height:1.7}.finalvalue{font-size:36px;font-weight:850;letter-spacing:-1px;margin:20px 0 4px}.finalgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}.finalstat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:13px}.finalstat span{display:block;color:var(--muted);font-size:10px;margin-bottom:7px}.finalstat strong{font-size:17px}.footer{text-align:center;color:var(--muted);font-size:10px;margin-top:23px}.hide{display:none!important}@media(max-width:850px){.layout{grid-template-columns:1fr}.gamebody{gap:13px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.chart{height:220px}}@media(max-width:480px){.wrap{padding:22px 13px 35px}.topbar{padding:0 14px}.topright .pill:first-child{display:none}.intro{align-items:flex-start}.roundbox{min-width:75px}.stat{padding:14px}.stat .value{font-size:20px}.panelhead{padding:15px}.chart-area{padding:14px 12px 5px}.chart{height:190px}.gamebody{padding:16px}.chart-foot{padding:12px 15px}}
+</style>
+<style>
+.trade-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:12px}.trade-controls label{color:var(--muted)}.trade-controls select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font:inherit}.trade-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}.trade-stat{background:var(--panel2);border-radius:9px;padding:10px}.trade-stat span{display:block;color:var(--muted);font-size:10px;margin-bottom:5px}.trade-stat strong{font-size:14px}.choices{grid-template-columns:repeat(3,minmax(0,1fr))}.choice.buy .arrow{color:var(--red)}.choice.sell .arrow{color:var(--green)}.choice.hold .arrow{color:var(--blue)}@media(max-width:480px){.choices{gap:6px}.choice{padding:12px 8px}.choice b{font-size:12px}.trade-controls{align-items:flex-start;flex-direction:column}}
+</style>
+<style>
+.research-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:16px 18px}.research-card{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:14px;min-width:0}.research-label{font-size:11px;color:var(--muted);margin-bottom:8px}.research-value{font-size:18px;font-weight:800;margin-bottom:6px}.research-detail{font-size:11px;line-height:1.65;color:var(--muted)}.signalbar{height:7px;background:var(--line);border-radius:10px;overflow:hidden;margin:9px 0}.signalbar span{display:block;height:100%;width:50%;background:var(--blue);transition:width .2s}.report-note{margin:0 18px 17px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:12px;line-height:1.7;color:var(--muted)}.report-note strong{color:var(--text)}@media(max-width:650px){.research-grid{grid-template-columns:1fr}.research-value{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="app" id="appRoot">
+<header class="topbar"><div class="brand"><div class="logo">↗</div><div>STOCK PULSE<small>MARKET GUESSING GAME</small></div></div><div class="topright"><span class="pill">模擬市場 · 隨機行情</span><span class="pill"><i class="live-dot"></i>遊戲運行中</span></div></header>
+<main class="wrap">
+<section class="intro"><div><div class="eyebrow">TRADE · MANAGE · GROW</div><h1>股票買賣模擬交易</h1><p>觀察產業報告與法人動向，決定買進、賣出或持有，管理你的投資組合。</p></div><div class="roundbox"><strong id="roundLabel">01 <span style="color:var(--muted);font-size:13px">/ 15</span></strong><span>目前回合</span><div class="progress"><div id="progressBar"></div></div></div></section>
+<section class="stats">
+<div class="stat"><div class="label">◈ 投資組合總值</div><div class="value" id="assetValue">NT$ 100,000</div><div class="sub" id="assetSub">現金＋股票市值</div></div>
+<div class="stat"><div class="label">↗ 累積報酬率</div><div class="value" id="returnValue">+0.00%</div><div class="sub">相對於初始資產</div></div>
+<div class="stat"><div class="label">▣ 持股市值</div><div class="value" id="accuracyValue">NT$ 0</div><div class="sub" id="accuracySub">目前股票部位價值</div></div>
+<div class="stat"><div class="label">↻ 已完成交易回合</div><div class="value" id="streakValue">0 / 15</div><div class="sub" id="bestStreakSub">每回合可交易一次</div></div>
+</section>
+<section class="layout">
+<div class="panel"><div class="panelhead"><div><div class="paneltitle">市場走勢</div><div class="panel-sub">模擬股票 · 代號 SPX-01</div></div><span class="tag">● SIMULATED</span></div><div class="chart-area"><div class="price-line"><strong id="priceValue">$ 100.00</strong><span id="priceChange" class="positive">+0.00 (0.00%)</span></div><canvas id="priceChart" class="chart" aria-label="模擬股價走勢圖">股價走勢圖</canvas><div class="chart-labels"><span>起始</span><span id="chartMid">第 1 回合</span><span>現在</span></div></div><div class="chart-foot"><span>當前價格 <strong id="footPrice">$100.00</strong></span><span>本局最高 <strong id="highPrice">$100.00</strong></span><span>本局最低 <strong id="lowPrice">$100.00</strong></span></div></div>
+<div class="panel game"><div class="panelhead"><div><div class="paneltitle">下單交易</div><div class="panel-sub">每回合選擇買進、賣出或持有</div></div><span class="pill" id="roundPill">ROUND 01</span></div><div class="gamebody"><div class="ticker"><div class="tickericon">SP</div><div><div class="tickername">SPX 模擬科技股</div><div class="tickersub">模擬價格 · 非真實市場資料</div></div></div><div class="trade-stats"><div class="trade-stat"><span>可用現金</span><strong id="cashValue">NT$ 100,000</strong></div><div class="trade-stat"><span>持有股數</span><strong id="sharesValue">0 股</strong></div></div><div class="trade-controls"><label for="tradeSize">本次交易比例</label><select id="tradeSize"><option value="0.25">25%（保守）</option><option value="0.5" selected>50%（適中）</option><option value="1">100%（全部）</option></select></div><div class="divider"></div><div class="question">你要如何操作？</div><div class="hint">買進會使用所選比例的可用現金；賣出會賣掉所選比例的持股。每回合下單後，市場才會變動。</div><div class="news" id="newsBox"><div class="newsicon">◉</div><div class="newstext"><small>市場觀察</small><span id="newsText">交易日開始，市場正在等待方向。</span></div></div><div class="choices"><button class="choice buy" id="upBtn"><span class="arrow">↗</span><b>買進</b><small>增加持股</small></button><button class="choice sell" id="downBtn"><span class="arrow">↘</span><b>賣出</b><small>減少持股</small></button><button class="choice hold" id="holdBtn"><span class="arrow">Ⅱ</span><b>持有</b><small>不進行交易</small></button></div><div id="resultBox" class="result" aria-live="polite"></div><button class="action primary" id="nextBtn" disabled>請先選擇交易操作 →</button><div class="microcopy">以虛擬資金 NT$100,000 起始；買賣手續費以成交金額的 0.1425% 模擬計算。股價與研究資訊皆為隨機模擬，並非真實市場資料。</div></div></div>
+</section>
+<section class="panel" style="margin-top:16px"><div class="panelhead"><div><div class="paneltitle">產業報告與大戶動向</div><div class="panel-sub">每回合提供模擬基本面與法人資金流，作為漲跌判斷線索</div></div><span class="tag" style="color:var(--gold);border-color:#f5bd4f55;background:#f5bd4f15">SIMULATED RESEARCH</span></div><div class="research-grid"><div class="research-card"><div class="research-label">產業景氣報告</div><div class="research-value" id="industrySignal">景氣持平</div><div class="research-detail" id="industryDetail">等待本回合產業資料。</div></div><div class="research-card"><div class="research-label">法人資金流向（模擬）</div><div class="research-value" id="institutionSignal">買賣力道均衡</div><div class="research-detail" id="institutionDetail">外資、投信、自營商模擬買賣超。</div></div><div class="research-card"><div class="research-label">綜合方向指標</div><div class="research-value" id="combinedSignal">中性觀望</div><div class="signalbar"><span id="signalBar"></span></div><div class="research-detail" id="combinedDetail">整合產業基本面與法人資金流，仍有隨機波動。</div></div></div><div class="report-note"><strong>本回合研究摘要：</strong> <span id="reportSummary">開始遊戲後會生成模擬產業報告。</span></div></section>
+<section class="panel history-panel"><div class="panelhead"><div><div class="paneltitle">交易紀錄</div><div class="panel-sub">每一回合的買賣操作與資產變化</div></div><span class="pill" id="historyCount">0 筆紀錄</span></div><div class="history" id="historyList"><span class="empty">完成第一次交易後，紀錄會顯示在這裡。</span></div></section>
+<div class="footer">此為娛樂與學習用途的模擬遊戲，不代表真實股市，也不構成投資建議。</div>
+</main>
+</div>
+<div class="overlay" id="finishOverlay" role="dialog" aria-modal="true" aria-labelledby="finishTitle"><div class="modal"><div class="trophy" id="trophyIcon">🏆</div><div class="eyebrow">SESSION COMPLETE</div><h2 id="finishTitle">本局結算</h2><p id="finishMessage">你的市場直覺如何？來看看這局的表現。</p><div class="finalvalue" id="finalAssets">NT$ 100,000</div><div class="sub" style="color:var(--muted);font-size:11px">最終虛擬總資產</div><div class="finalgrid"><div class="finalstat"><span>累積報酬率</span><strong id="finalReturn">+0.00%</strong></div><div class="finalstat"><span>交易回合</span><strong id="finalAccuracy">0%</strong></div><div class="finalstat"><span>剩餘現金</span><strong id="finalWins">0 / 15</strong></div><div class="finalstat"><span>最終持股</span><strong id="finalStreak">0 回合</strong></div></div><button class="action primary" id="restartBtn">再玩一局 ↻</button></div></div>
+<script>
+(() => {
+  const START_CASH = 100000;
+  const TOTAL_ROUNDS = 15;
+  const START_PRICE = 100;
+  const money = n => 'NT$ ' + Math.round(n).toLocaleString('en-US');
+  const priceFmt = n => '$' + n.toFixed(2);
+  const pct = n => (n >= 0 ? '+' : '') + n.toFixed(2) + '%';
+  const $ = id => document.getElementById(id);
+  const state = {};
+  let chartCtx;
+  const canvas = $('priceChart');
+
+  function init() {
+    state.round = 1;
+    state.cash = START_CASH;
+    state.shares = 0;
+    state.assets = START_CASH;
+    state.price = START_PRICE;
+    state.prices = [START_PRICE];
+    state.guesses = [];
+    state.wins = 0;
+    state.streak = 0;
+    state.bestStreak = 0;
+    state.waiting = false;
+    state.lastGuess = null;
+    state.lastMove = 0;
+    state.lastResult = null;
+    state.news = '交易日開始，市場正在等待方向。';
+    state.prevPrice = START_PRICE;
+    createReport();
+    $('finishOverlay').classList.remove('show');
+    $('upBtn').disabled = false;
+    $('downBtn').disabled = true;
+    $('holdBtn').disabled = false;
+    $('nextBtn').disabled = true;
+    $('nextBtn').textContent = '請先選擇交易操作 →';
+    $('resultBox').className = 'result';
+    $('resultBox').innerHTML = '';
+    $('newsText').textContent = state.news;
+    render();
+  }
+
+  function createReport() {
+    const industryScore = Math.random() * 2 - 1;
+    const sectors = [
+      {name:'半導體與 AI 供應鏈', good:'AI 伺服器需求與訂單展望改善', bad:'庫存調整與資本支出疑慮升高'},
+      {name:'電動車與綠能', good:'出貨展望改善，供應鏈需求回溫', bad:'價格競爭加劇，毛利率承壓'},
+      {name:'消費電子', good:'新品週期帶動拉貨動能', bad:'終端需求保守，通路庫存仍待消化'},
+      {name:'金融與內需', good:'利差與消費數據表現優於預期', bad:'景氣能見度下降，市場採取防禦配置'}
+    ];
+    const sector = sectors[Math.floor(Math.random() * sectors.length)];
+    const foreign = Math.round((Math.random() * 160 - 80) * 10) / 10;
+    const trust = Math.round((Math.random() * 90 - 45) * 10) / 10;
+    const dealer = Math.round((Math.random() * 60 - 30) * 10) / 10;
+    const flow = (foreign / 80 + trust / 45 + dealer / 30) / 3;
+    const bias = industryScore * 0.018 + flow * 0.012;
+    const score = industryScore * 0.55 + flow * 0.45;
+    state.report = {sector:sector.name, industryScore, flowScore:flow, foreign, trust, dealer, bias, score, text:industryScore >= 0 ? sector.good : sector.bad};
+    const report = state.report;
+    $('industrySignal').textContent = report.industryScore > 0.25 ? '景氣偏多' : report.industryScore < -0.25 ? '景氣偏空' : '景氣持平';
+    $('industrySignal').className = 'research-value ' + (report.industryScore > 0.25 ? 'positive' : report.industryScore < -0.25 ? 'negative' : '');
+    $('industryDetail').textContent = `${report.sector}｜${report.text}。模擬景氣分數 ${report.industryScore > 0 ? '+' : ''}${report.industryScore.toFixed(2)}。`;
+    $('institutionSignal').textContent = report.flowScore > 0.18 ? '法人偏向買超' : report.flowScore < -0.18 ? '法人偏向賣超' : '買賣力道均衡';
+    $('institutionSignal').className = 'research-value ' + (report.flowScore > 0.18 ? 'positive' : report.flowScore < -0.18 ? 'negative' : '');
+    $('institutionDetail').textContent = `外資 ${report.foreign > 0 ? '+' : ''}${report.foreign} 億｜投信 ${report.trust > 0 ? '+' : ''}${report.trust} 億｜自營商 ${report.dealer > 0 ? '+' : ''}${report.dealer} 億。正數代表模擬買超。`;
+    $('combinedSignal').textContent = report.score > 0.2 ? '偏多訊號' : report.score < -0.2 ? '偏空訊號' : '中性觀望';
+    $('combinedSignal').className = 'research-value ' + (report.score > 0.2 ? 'positive' : report.score < -0.2 ? 'negative' : '');
+    $('signalBar').style.width = `${Math.max(5, Math.min(95, 50 + report.score * 45))}%`;
+    $('signalBar').style.background = report.score > 0.15 ? 'var(--green)' : report.score < -0.15 ? 'var(--red)' : 'var(--blue)';
+    $('combinedDetail').textContent = `產業面權重 55%、資金流權重 45%；綜合分數 ${report.score > 0 ? '+' : ''}${report.score.toFixed(2)}。訊號只影響機率，不保證方向。`;
+    $('reportSummary').textContent = `${report.sector}：${report.text}；法人資金${report.flowScore > 0.18 ? '偏向流入' : report.flowScore < -0.18 ? '偏向流出' : '方向分歧'}。綜合訊號為${report.score > 0.2 ? '偏多' : report.score < -0.2 ? '偏空' : '中性'}。`;
+  }
+
+  function getNews(change) {
+    const events = change > 0
+      ? ['市場買盤轉強，投資人信心回升。','科技類股氣氛偏多，買方略占上風。','市場傳出正面消息，交易情緒升溫。','資金流入風險資產，股價受到支撐。']
+      : ['市場賣壓增加，投資人轉趨謹慎。','獲利了結賣單湧現，股價承壓。','市場情緒轉弱，買方暫時退場。','不確定性升高，短線資金選擇觀望。'];
+    if (Math.random() < 0.13) return {icon:'⚡', text:'突發波動！市場出現意外消息，價格波動擴大。'};
+    return {icon: change > 0 ? '↗' : '↘', text: events[Math.floor(Math.random() * events.length)]};
+  }
+
+  function predict(action) {
+    if (state.waiting || state.round > TOTAL_ROUNDS) return;
+    const ratio = Number($('tradeSize').value);
+    let tradeText = '選擇持有，本回合未下單。';
+    if (action === 'up') {
+      const budget = state.cash * ratio;
+      const bought = Math.floor(budget / (state.price * (1 + 0.001425)));
+      if (bought < 1) { $('resultBox').className = 'result show bad'; $('resultBox').innerHTML = '<strong>可用現金不足</strong>目前現金不足以買進一股，請改選持有或先賣出持股。'; return; }
+      const cost = bought * state.price;
+      state.cash -= cost * (1 + 0.001425);
+      state.shares += bought;
+      tradeText = `買進 ${bought.toLocaleString()} 股，成交金額 ${money(cost)}，另計手續費。`;
+    } else if (action === 'down') {
+      const sold = Math.floor(state.shares * ratio);
+      if (sold < 1) { $('resultBox').className = 'result show bad'; $('resultBox').innerHTML = '<strong>目前沒有可賣持股</strong>請先買進股票，或選擇持有。'; return; }
+      const proceeds = sold * state.price;
+      state.cash += proceeds * (1 - 0.001425);
+      state.shares -= sold;
+      tradeText = `賣出 ${sold.toLocaleString()} 股，成交金額 ${money(proceeds)}，已扣除手續費。`;
+    }
+    state.waiting = true;
+    const shock = Math.random() < 0.12 ? (Math.random() < 0.5 ? -1 : 1) * (0.035 + Math.random() * 0.045) : 0;
+    const drift = (state.report ? state.report.bias : 0) + (Math.random() - 0.5) * 0.055;
+    let move = drift + shock;
+    if (Math.abs(move) < 0.004) move = move < 0 ? -0.006 : 0.006;
+    state.lastMove = move;
+    state.prevPrice = state.price;
+    state.price = Math.max(12, state.price * (1 + move));
+    state.prices.push(state.price);
+    const previousAssets = state.assets;
+    state.assets = state.cash + state.shares * state.price;
+    const delta = state.assets - previousAssets;
+    state.guesses.push({round:state.round, action, tradeText, move, delta, price:state.price, assets:state.assets});
+    state.lastResult = {action, tradeText, delta, move};
+    const news = getNews(move);
+    state.news = news.text;
+    $('newsBox').querySelector('.newsicon').textContent = news.icon;
+    $('newsText').textContent = news.text;
+    $('upBtn').disabled = true;
+    $('downBtn').disabled = true;
+    $('holdBtn').disabled = true;
+    $('nextBtn').disabled = false;
+    $('nextBtn').textContent = state.round === TOTAL_ROUNDS ? '查看最終結算 →' : '下一回合 →';
+    $('resultBox').className = 'result show ' + (delta >= 0 ? 'good' : 'bad');
+    $('resultBox').innerHTML = `<strong>${action === 'up' ? '↗ 已買進' : action === 'down' ? '↘ 已賣出' : 'Ⅱ 持有觀望'}</strong>${tradeText}<br>之後股價${move >= 0 ? '上漲' : '下跌'} ${Math.abs(move * 100).toFixed(2)}%；投資組合本回合變動 <b>${delta >= 0 ? '+' : '−'}${money(Math.abs(delta))}</b>。`;
+    render();
+  }
+
+  function nextRound() {
+    if (!state.waiting) return;
+    if (state.round >= TOTAL_ROUNDS) { finish(); return; }
+    state.round += 1;
+    state.waiting = false;
+    state.lastGuess = null;
+    state.lastResult = null;
+    $('upBtn').disabled = false;
+    $('downBtn').disabled = state.shares < 1;
+    $('holdBtn').disabled = false;
+    $('nextBtn').disabled = true;
+    $('nextBtn').textContent = '請先選擇交易操作 →';
+    $('resultBox').className = 'result';
+    $('resultBox').innerHTML = '';
+    $('newsBox').querySelector('.newsicon').textContent = '◉';
+    $('newsText').textContent = '觀察產業報告與法人資金流，決定本回合操作。';
+    createReport();
+    render();
+  }
+
+  function render() {
+    const ret = (state.assets / START_CASH - 1) * 100;
+    const accuracy = state.guesses.length ? state.wins / state.guesses.length * 100 : null;
+    $('roundLabel').innerHTML = `${String(Math.min(state.round, TOTAL_ROUNDS)).padStart(2,'0')} <span style="color:var(--muted);font-size:13px">/ ${TOTAL_ROUNDS}</span>`;
+    $('roundPill').textContent = `ROUND ${String(Math.min(state.round,TOTAL_ROUNDS)).padStart(2,'0')}`;
+    $('progressBar').style.width = `${state.guesses.length / TOTAL_ROUNDS * 100}%`;
+    $('assetValue').textContent = money(state.assets);
+    $('assetSub').textContent = `現金 ${money(state.cash)} · 股票市值 ${money(state.shares * state.price)}`;
+    $('cashValue').textContent = money(state.cash);
+    $('sharesValue').textContent = `${state.shares.toLocaleString()} 股 · 市值 ${money(state.shares * state.price)}`;
+    $('returnValue').textContent = pct(ret);
+    $('returnValue').className = 'value ' + (ret >= 0 ? 'positive' : 'negative');
+    $('accuracyValue').textContent = money(state.shares * state.price);
+    $('accuracySub').textContent = `${state.shares.toLocaleString()} 股 × ${priceFmt(state.price)}`;
+    $('streakValue').textContent = `${state.guesses.length} / ${TOTAL_ROUNDS}`;
+    $('bestStreakSub').textContent = state.guesses.length ? `最近操作：${state.guesses[state.guesses.length-1].action === 'up' ? '買進' : state.guesses[state.guesses.length-1].action === 'down' ? '賣出' : '持有'}` : '尚未進行交易';
+    $('priceValue').textContent = priceFmt(state.price);
+    const change = state.price - START_PRICE;
+    const changePct = change / START_PRICE * 100;
+    $('priceChange').textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)} (${changePct.toFixed(2)}%)`;
+    $('priceChange').className = change >= 0 ? 'positive' : 'negative';
+    $('footPrice').textContent = priceFmt(state.price);
+    $('highPrice').textContent = priceFmt(Math.max(...state.prices));
+    $('lowPrice').textContent = priceFmt(Math.min(...state.prices));
+    $('chartMid').textContent = `第 ${state.prices.length - 1} 回合`;
+    $('historyCount').textContent = `${state.guesses.length} 筆紀錄`;
+    const history = $('historyList');
+    if (!state.guesses.length) history.innerHTML = '<span class="empty">完成第一次預測後，紀錄會顯示在這裡。</span>';
+    else history.innerHTML = state.guesses.map(g => `<span class="history-chip ${g.delta >= 0 ? 'win' : 'loss'}">第 ${g.round} 回合 <b>${g.action === 'up' ? '買進' : g.action === 'down' ? '賣出' : '持有'}</b> · 資產 ${g.delta >= 0 ? '+' : '−'}${money(Math.abs(g.delta))} · 股價 ${g.move >= 0 ? '+' : ''}${(g.move*100).toFixed(2)}%</span>`).join('');
+    drawChart();
+  }
+
+  function drawChart() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const width = Math.max(300, rect.width);
+    const height = Math.max(160, rect.height);
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    chartCtx = canvas.getContext('2d');
+    chartCtx.scale(dpr,dpr);
+    const ctx = chartCtx;
+    const styles = getComputedStyle(document.documentElement);
+    const grid = styles.getPropertyValue('--line').trim() || '#26364b';
+    const muted = styles.getPropertyValue('--muted').trim() || '#8fa1ba';
+    const green = '#21c58e';
+    const red = '#f05d69';
+    const values = state.prices;
+    const pad = {l:38,r:12,t:18,b:20};
+    const cw = width-pad.l-pad.r, ch=height-pad.t-pad.b;
+    let min = Math.min(...values), max = Math.max(...values);
+    const span = Math.max(max-min, 3);
+    min -= span*.2; max += span*.2;
+    const x = i => pad.l + (values.length === 1 ? cw/2 : i/(Math.max(TOTAL_ROUNDS, values.length-1))*cw);
+    const y = v => pad.t + (max-v)/(max-min)*ch;
+    ctx.clearRect(0,0,width,height);
+    ctx.font='10px -apple-system,BlinkMacSystemFont,sans-serif';
+    ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillStyle=muted;
+    for(let i=0;i<5;i++){
+      const val=max-(max-min)*i/4, yy=pad.t+ch*i/4;
+      ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(width-pad.r,yy);ctx.strokeStyle=grid;ctx.lineWidth=1;ctx.stroke();
+      ctx.fillText(val.toFixed(1),pad.l-8,yy);
+    }
+    const up = values[values.length-1] >= values[0];
+    const color = up ? green : red;
+    ctx.beginPath();values.forEach((v,i)=>{if(i===0)ctx.moveTo(x(i),y(v));else ctx.lineTo(x(i),y(v));});
+    ctx.lineTo(x(values.length-1),height-pad.b);ctx.lineTo(x(0),height-pad.b);ctx.closePath();
+    const grad=ctx.createLinearGradient(0,pad.t,0,height-pad.b);grad.addColorStop(0,up?'#21c58e35':'#f05d6935');grad.addColorStop(1,up?'#21c58e00':'#f05d6900');ctx.fillStyle=grad;ctx.fill();
+    ctx.beginPath();values.forEach((v,i)=>{if(i===0)ctx.moveTo(x(i),y(v));else ctx.lineTo(x(i),y(v));});ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();
+    values.forEach((v,i)=>{if(i===values.length-1){ctx.beginPath();ctx.arc(x(i),y(v),4,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();ctx.beginPath();ctx.arc(x(i),y(v),7,0,Math.PI*2);ctx.strokeStyle=color+'55';ctx.lineWidth=2;ctx.stroke();}});
+    if(values.length>1){ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(pad.l,y(values[0]));ctx.lineTo(width-pad.r,y(values[0]));ctx.strokeStyle=muted+'77';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);}
+  }
+
+  function finish() {
+    const ret = (state.assets / START_CASH - 1) * 100;
+    $('finishTitle').textContent = ret >= 0 ? '投資組合獲利！' : '本局交易結束';
+    $('finishMessage').textContent = ret >= 0 ? '你的投資組合本局取得正報酬。' : '回顧買賣時機與部位管理，下一局再試試不同策略。';
+    $('trophyIcon').textContent = ret >= 0 ? '🏆' : '📊';
+    $('finalAssets').textContent = money(state.assets);
+    $('finalReturn').textContent = pct(ret);
+    $('finalReturn').className = ret >= 0 ? 'positive' : 'negative';
+    $('finalAccuracy').textContent = `${state.guesses.length} / ${TOTAL_ROUNDS}`;
+    $('finalWins').textContent = money(state.cash);
+    $('finalStreak').textContent = `${state.shares.toLocaleString()} 股`;
+    $('finishOverlay').classList.add('show');
+    $('progressBar').style.width = '100%';
+  }
+
+  $('upBtn').addEventListener('click',()=>predict('up'));
+  $('downBtn').addEventListener('click',()=>predict('down'));
+  $('holdBtn').addEventListener('click',()=>predict('hold'));
+  $('nextBtn').addEventListener('click',nextRound);
+  $('restartBtn').addEventListener('click',init);
+  window.addEventListener('resize',drawChart);
+  init();
+})();
+</script>
+</body>
+</html>
